@@ -1,0 +1,68 @@
+name: Deploy Helm chart
+
+on:
+  workflow_dispatch: 
+  
+  workflow_call:
+    inputs:
+      AWS_ACCOUNT_NAME:
+        required: true
+        type: string
+      CLUSTER_NAME:
+        required: true
+        type: string
+      AWS_ACCOUNT_ID:
+        required: true
+        type: string
+      AWS_DEFAULT_REGION:
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:    
+  install_chart:
+    runs-on: self-hosted
+    steps:
+      - uses: VFGroup-VBIT/vbitdc-opf-actions/aws/install-cli-action@main
+      
+      - name: Check out code
+        uses: actions/checkout@v4
+      
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/Github-Runners-Access
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
+
+      - id: private-modules
+        uses: VFGroup-VBIT/vbitdc-opf-actions/private-modules@main
+        with:
+          org: VFGroup-VBIT
+          token: ${{ secrets.GHTOKEN }}
+
+      - name: Log IP
+        run: curl -s https://checkip.amazonaws.com/
+
+      - name: Log AWS principal
+        run: aws sts get-caller-identity
+
+      - name: Install Helm
+        id: install-helm
+        shell: bash
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+          helm version
+          
+          aws eks update-kubeconfig --region ${{ vars.AWS_DEFAULT_REGION }} --name ${{ vars.CLUSTER_NAME }}
+
+      - name: Install Helm chart
+        shell: bash
+        run: |
+          
+          helm upgrade --install --create-namespace --namespace vgeco-reverse-proxy \
+            -f ./config/${{ vars.ENV_NAME }}.yaml \
+            test-release bitnami/nginx
