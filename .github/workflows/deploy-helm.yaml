@@ -38,9 +38,9 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/Github-Runners-Access
+          role-to-assume: arn:aws:iam::${{ inputs.AWS_ACCOUNT_ID }}:role/Github-Runners-Access
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
-          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
+          aws-region: ${{ inputs.AWS_DEFAULT_REGION }}
 
       - id: private-modules
         uses: VFGroup-VBIT/vbitdc-opf-actions/private-modules@main
@@ -61,12 +61,12 @@ jobs:
           curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
           helm version
           
-          aws eks update-kubeconfig --region ${{ vars.AWS_DEFAULT_REGION }} --name ${{ vars.CLUSTER_NAME }}
+          aws eks update-kubeconfig --region ${{ inputs.AWS_DEFAULT_REGION }} --name ${{ inputs.CLUSTER_NAME }}
 
       - name: Install Helm chart
         shell: bash
         run: |
           
           helm upgrade --install --create-namespace --namespace vgeco-reverse-proxy \
-            -f ./config/${{ vars.ENV_NAME }}.yaml \
+            -f ./config/${{ inputs.AWS_ACCOUNT_NAME }}.yaml \
             test-release bitnami/nginx
