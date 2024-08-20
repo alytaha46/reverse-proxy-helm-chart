@@ -1,7 +1,15 @@
 name: Deploy Helm chart
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
+    inputs:
+      ENVIRONMENT:
+        description: 'Select the environment'
+        required: true
+        type: choice
+        options:
+          - sandbox
+          - maac-mgmt
   
   workflow_call:
 
@@ -11,7 +19,7 @@ permissions:
 
 jobs:    
   install_chart:
-    environment: sandbox
+    environment: ${{ github.event.inputs.ENVIRONMENT }}
     runs-on: self-hosted
     steps:
       - uses: VFGroup-VBIT/vbitdc-opf-actions/aws/install-cli-action@main
@@ -56,3 +64,9 @@ jobs:
           helm upgrade --install --create-namespace --namespace vgeco-reverse-proxy \
             -f ./nginxChart/config/${{ vars.AWS_ACCOUNT_NAME }}.yaml \
             test-release bitnami/nginx
+
+      - name: Get LoadBalancer DNS
+        id: get_lb_dns
+        run: |
+              LB_DNS=$(kubectl get svc my-service -n my-namespace -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+              echo "LB_DNS=${LB_DNS}" >> $GITHUB_ENV
