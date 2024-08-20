@@ -67,5 +67,5 @@ jobs:
           helm repo update
 
           helm upgrade --install --create-namespace --namespace vgeco-reverse-proxy \
-            -f ./config/${{ vars.AWS_ACCOUNT_NAME }}.yaml \
+            -f ./nginxChart/config/${{ vars.AWS_ACCOUNT_NAME }}.yaml \
             test-release bitnami/nginx
