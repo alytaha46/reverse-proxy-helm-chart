@@ -7,20 +7,20 @@ on:
     inputs:
       AWS_ACCOUNT_NAME:
         required: true
-        type: string
         default: 'sandbox'
+        type: string
       CLUSTER_NAME:
         required: true
-        type: string
         default: 'cloudhub_sandbox'
+        type: string
       AWS_ACCOUNT_ID:
         required: true
-        type: string
         default: '117521914691'
+        type: string
       AWS_DEFAULT_REGION:
         required: true
-        type: string
         default: 'eu-west-1'
+        type: string
 
 permissions:
   id-token: write
