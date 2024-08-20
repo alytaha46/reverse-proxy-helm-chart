@@ -4,19 +4,6 @@ on:
   workflow_dispatch: 
   
   workflow_call:
-    inputs:
-      AWS_ACCOUNT_NAME:
-        required: true
-        type: string
-      CLUSTER_NAME:
-        required: true
-        type: string
-      AWS_ACCOUNT_ID:
-        required: true
-        type: string
-      AWS_DEFAULT_REGION:
-        required: true
-        type: string
 
 permissions:
   id-token: write
