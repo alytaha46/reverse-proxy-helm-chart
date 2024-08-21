@@ -692,7 +692,7 @@ service:
   annotations: 
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
     service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-    service.beta.kubernetes.io/aws-load-balancer-eip-allocations: eipalloc-0a23a087b181bc2dd
+    service.beta.kubernetes.io/aws-load-balancer-eip-allocations: eipalloc-0efd7978df83553f8
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-1:117521914691:certificate/bb266c49-3827-4985-9be7-15ececb2a2ba
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
     service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-064630723002bb410
