@@ -695,7 +695,7 @@ service:
     service.beta.kubernetes.io/aws-load-balancer-eip-allocations: eipalloc-0efd7978df83553f8
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-1:117521914691:certificate/bb266c49-3827-4985-9be7-15ececb2a2ba
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
-    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-07bfae11f840ff130
+    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-035ee64fac9be8206
 
   ## @param service.externalTrafficPolicy Enable client source IP preservation
   ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
