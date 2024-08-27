@@ -7,6 +7,6 @@ jobs:
     uses: ./.github/workflows/deploy-helm.yaml
     strategy:
       matrix:
-        environment: ["sandbox", "maac-mgmt"]
+        environment: ["sandbox"]
     with:
       ENVIRONMENT: ${{ matrix.environment }}
