@@ -1,0 +1,12 @@
+name: Cron deploy
+on:
+  # Triggers the workflow every 5 minutes
+  schedule:
+    - cron: "*/5 * * * *"
+jobs:
+  trigger_deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Test
+        run: |
+              echo test
