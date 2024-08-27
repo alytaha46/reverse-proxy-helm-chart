@@ -12,6 +12,11 @@ on:
           - maac-mgmt
   
   workflow_call:
+    inputs:
+      ENVIRONMENT:
+        description: 'Environment name'
+        required: true
+        type: string
 
 permissions:
   id-token: write

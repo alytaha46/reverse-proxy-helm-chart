@@ -1,12 +1,9 @@
 name: Cron deploy
 on:
-  # Triggers the workflow every 5 minutes
   schedule:
     - cron: "* * * * *"
 jobs:
-  trigger_deploy:
-    runs-on: self-hosted
-    steps:
-      - name: Test
-        run: |
-              echo test
+  call_deploy_helm:
+    uses: ./.github/workflows/deploy-helm.yaml
+    with:
+      ENVIRONMENT: "sandbox"
