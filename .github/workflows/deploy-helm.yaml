@@ -24,7 +24,7 @@ permissions:
 
 jobs:    
   install_chart:
-    environment: ${{ github.event.inputs.ENVIRONMENT }}
+    environment: ${{ inputs.ENVIRONMENT }}
     runs-on: self-hosted
     steps:
       - uses: VFGroup-VBIT/vbitdc-opf-actions/aws/install-cli-action@main
