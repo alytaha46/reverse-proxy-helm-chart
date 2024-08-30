@@ -608,7 +608,10 @@ serverBlock: |-
     server_name  localhost;
     location /VFCom-oneportal/ {
         proxy_pass https://pkgs.dev.azure.com/VFCom-oneportal/;
-   }
+    }
+    location /artifactory/ {
+        proxy_pass https://artifactory.vodafone.com/artifactory/;
+    }
     }
 
 
