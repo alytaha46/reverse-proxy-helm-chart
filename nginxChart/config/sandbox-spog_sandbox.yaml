@@ -607,7 +607,17 @@ serverBlock: |-
     listen 8080;
     server_name  localhost;
     location /VFCom-oneportal/ {
+        proxy_pass_request_headers on;
+        proxy_intercept_errors on;
         proxy_pass https://pkgs.dev.azure.com/VFCom-oneportal/;
+        error_page 301 302 303 307 = @handle_redirect;
+    }
+
+    location @handle_redirect {
+        proxy_pass_request_headers off;
+        set $saved_redirect_location '$upstream_http_location';
+        resolver 8.8.8.8;
+        proxy_pass $saved_redirect_location;
     }
     location /artifactory/ {
         proxy_pass https://artifactory.vodafone.com/artifactory/;
