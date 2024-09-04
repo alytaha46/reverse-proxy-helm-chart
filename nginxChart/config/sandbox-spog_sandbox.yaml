@@ -614,7 +614,7 @@ serverBlock: |-
     }
 
     location @handle_redirect {
-        proxy_pass_request_headers off;
+        proxy_pass_request_headers on;
         set $saved_redirect_location '$upstream_http_location';
         resolver 8.8.8.8;
         proxy_pass $saved_redirect_location;
