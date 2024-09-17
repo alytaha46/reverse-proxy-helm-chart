@@ -38,12 +38,6 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ vars.AWS_DEFAULT_REGION }}
 
-      - id: private-modules
-        uses: VFGroup-VBIT/vbitdc-opf-actions/private-modules@main
-        with:
-          org: VFGroup-VBIT
-          token: ${{ secrets.GHTOKEN }}
-
       - name: Log IP
         run: curl -s https://checkip.amazonaws.com/
 
