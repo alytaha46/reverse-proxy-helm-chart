@@ -44,7 +44,7 @@ jobs:
         run: curl -s https://checkip.amazonaws.com/
 
       - name: Log AWS principal
-        run: aws sts get-caller-identity
+        run: aws sts get-caller-identity --profile saml
 
       - name: Install Helm and kubectl
         id: install-helm
