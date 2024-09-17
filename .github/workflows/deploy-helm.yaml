@@ -31,20 +31,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
         
-      - name: try1
-        shell: bash
-        run: |
-          # Install kubectl
-          cd /
-          ls -la
-          aws
+
       
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/Github-Runners-Access
-          role-session-name: GitHub_to_AWS_via_FederatedOIDC
-          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
+#      - name: configure aws credentials
+#        uses: aws-actions/configure-aws-credentials@v4
+#        with:
+#          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/Github-Runners-Access
+#          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+#          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
 
       - name: Log IP
         run: curl -s https://checkip.amazonaws.com/
@@ -56,18 +50,20 @@ jobs:
         id: install-helm
         shell: bash
         run: |
-          # Install kubectl
-          pip install kubernetes
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod +x kubectl
-          mkdir -p ~/.local/bin
-          mv ./kubectl ~/.local/bin/kubectl
-          kubectl version --client
+          aws eks update-kubeconfig --region ${{ vars.AWS_DEFAULT_REGION }} --name ${{ vars.CLUSTER_NAME }} --profile saml
 
-          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-          helm version
-          
-          aws eks update-kubeconfig --region ${{ vars.AWS_DEFAULT_REGION }} --name ${{ vars.CLUSTER_NAME }}
+#          # Install kubectl
+#          pip install kubernetes
+#          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+#          chmod +x kubectl
+#          mkdir -p ~/.local/bin
+#          mv ./kubectl ~/.local/bin/kubectl
+#          kubectl version --client
+
+#         curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+#         helm version
+
+#          aws eks update-kubeconfig --region ${{ vars.AWS_DEFAULT_REGION }} --name ${{ vars.CLUSTER_NAME }} --profile saml
 
       - name: Install Helm chart
         shell: bash
