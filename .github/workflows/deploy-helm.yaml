@@ -30,6 +30,14 @@ jobs:
       
       - name: Check out code
         uses: actions/checkout@v4
+        
+      - name: try1
+        shell: bash
+        run: |
+          # Install kubectl
+          cd /
+          ls -la
+          aws
       
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4
