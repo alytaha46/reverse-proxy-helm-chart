@@ -27,7 +27,6 @@ jobs:
     environment: ${{ inputs.ENVIRONMENT }}
     runs-on: self-hosted
     steps:
-      - uses: VFGroup-VBIT/vbitdc-opf-actions/aws/install-cli-action@main
       
       - name: Check out code
         uses: actions/checkout@v4
